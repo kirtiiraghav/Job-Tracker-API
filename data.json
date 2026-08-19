@@ -1,0 +1,22 @@
+{
+  "applications": [
+    {
+      "id": 1,
+      "company": "Google",
+      "role": "Software Engineer",
+      "status": "applied"
+    },
+    {
+      "id": 2,
+      "company": "Microsoft",
+      "role": "Frontend Developer",
+      "status": "interview"
+    },
+    {
+      "id": 3,
+      "company": "Amazon",
+      "role": "Backend Engineer",
+      "status": "rejected"
+    }
+  ]
+}
