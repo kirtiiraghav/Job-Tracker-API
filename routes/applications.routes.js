@@ -2,7 +2,8 @@ const express = require("express");
 const {
   getApplications,
   getApplicationById,
-  getStats
+  getStats,
+  createApplication
 } = require("../controllers/applications.controller");
 
 const router = express.Router();
@@ -15,5 +16,12 @@ router.get("/stats", getStats)
 
 // Get a single application by id
 router.get("/:id", getApplicationById);
+
+// Create a new application
+router.post("/", createApplication)
+
+// Partially update an application
+
+// Delete an application 
 
 module.exports = router;

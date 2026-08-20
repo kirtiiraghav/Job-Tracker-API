@@ -17,6 +17,12 @@
       "company": "Amazon",
       "role": "Backend Engineer",
       "status": "selected"
+    },
+    {
+      "id": 4,
+      "company": "Netflix",
+      "role": "Backend Engineer",
+      "status": "applied"
     }
   ]
 }

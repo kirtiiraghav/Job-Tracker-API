@@ -1,4 +1,5 @@
 const { application } = require("express");
+const { networkInterfaces } = require("os");
 const fs = require("fs").promises;
 const path = require("path");
 
@@ -9,8 +10,8 @@ const readData = async () => {
   return JSON.parse(raw);
 };
 
-const writeData = (applications) => {
-  fs.writeFile(DATA_FILE_PATH, JSON.stringify(data), null, 2);
+const writeData = (application) => {
+  fs.writeFile(DATA_FILE_PATH, JSON.stringify(application, null, 2));
 };
 
 const sendSuccess = (res, status, success, data) => {
@@ -76,4 +77,23 @@ const getStats = async (req, res) => {
   sendSuccess(res, 200, true, stats);
 };
 
-module.exports = { getApplications, getApplicationById, getStats };
+const createApplication = async (req, res) => {
+  const data = await readData();
+  let applications = data.applications;
+
+  const newApplication = req.body;
+  const id = applications.length + 1;
+  applications = [...applications, { id, ...newApplication }];
+
+  writeData({
+    applications: applications,
+  });
+  sendSuccess(res, 200, true, { id, ...newApplication });
+};
+
+module.exports = {
+  getApplications,
+  getApplicationById,
+  getStats,
+  createApplication,
+};
