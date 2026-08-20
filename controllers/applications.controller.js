@@ -63,4 +63,17 @@ const getApplicationById = async (req, res) => {
   }
 };
 
-module.exports = { getApplications, getApplicationById };
+const getStats = async (req, res) => {
+  const data = await readData();
+  const applications = data.applications;
+
+  const stats = {};
+  for (let app of applications) {
+    stats[app.status] = (stats[app.status] || 0) + 1;
+  }
+
+  stats["total"] = applications.length;
+  sendSuccess(res, 200, true, stats);
+};
+
+module.exports = { getApplications, getApplicationById, getStats };
