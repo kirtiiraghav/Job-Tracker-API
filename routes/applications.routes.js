@@ -3,7 +3,8 @@ const {
   getApplications,
   getApplicationById,
   getStats,
-  createApplication
+  createApplication, 
+  updateApplication
 } = require("../controllers/applications.controller");
 
 const router = express.Router();
@@ -21,6 +22,7 @@ router.get("/:id", getApplicationById);
 router.post("/", createApplication)
 
 // Partially update an application
+router.put("/:id", updateApplication)
 
 // Delete an application 
 

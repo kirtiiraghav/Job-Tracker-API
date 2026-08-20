@@ -81,19 +81,36 @@ const createApplication = async (req, res) => {
   const data = await readData();
   let applications = data.applications;
 
-  const newApplication = req.body;
-  const id = applications.length + 1;
-  applications = [...applications, { id, ...newApplication }];
+  const { company, role, status } = req.body;
 
-  writeData({
-    applications: applications,
-  });
-  sendSuccess(res, 200, true, { id, ...newApplication });
+  if (!company || !role) {
+    sendError(res, 400, false, "Company and role are required");
+    return;
+  }
+
+  const id =
+    applications.length > 0
+      ? Math.max(...applications.map((a) => a.id)) + 1
+      : 1;
+
+  const newApplication = {
+    id,
+    company,
+    role,
+    status: status || "applied",
+  };
+  applications = [...applications, newApplication];
+
+  writeData({ applications });
+  sendSuccess(res, 201, true, newApplication);
 };
+
+const updateApplication = (req, res) => {};
 
 module.exports = {
   getApplications,
   getApplicationById,
   getStats,
   createApplication,
+  updateApplication,
 };

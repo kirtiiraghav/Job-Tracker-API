@@ -23,6 +23,18 @@
       "company": "Netflix",
       "role": "Backend Engineer",
       "status": "applied"
+    },
+    {
+      "id": 5,
+      "company": "Meta",
+      "role": "Full Stack",
+      "status": "interview"
+    },
+    {
+      "id": 6,
+      "company": "Benchmark Gensuite",
+      "role": "FSD",
+      "status": "selected"
     }
   ]
 }
