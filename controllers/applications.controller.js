@@ -17,6 +17,10 @@ const sendSuccess = (res, status, success, data) => {
   res.status(status).json({ success, data });
 };
 
+const sendError = (res, status, success, message) => {
+  res.status(status).json({ success, message });
+};
+
 // status, sort, page, limit
 const getApplications = async (req, res) => {
   const data = await readData();
@@ -47,16 +51,16 @@ const getApplications = async (req, res) => {
 
 const getApplicationById = async (req, res) => {
   const data = await readData();
-  let applications = data.applications;
-
   const { id } = req.params;
 
-  if (id) {
-    const ID = Number(id);
-    applications = applications.filter((app) => app.id === ID);
-  }
+  const ID = Number(id);
+  const application = data.applications.find((app) => app.id === ID);
 
-  sendSuccess(res, 200, true, applications);
+  if (!application) {
+    sendError(res, 404, false, `Application not found for id: ${id}`);
+  } else {
+    sendSuccess(res, 200, true, application);
+  }
 };
 
 module.exports = { getApplications, getApplicationById };
