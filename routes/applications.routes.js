@@ -22,7 +22,7 @@ router.get("/:id", getApplicationById);
 router.post("/", createApplication)
 
 // Partially update an application
-router.put("/:id", updateApplication)
+router.patch("/:id", updateApplication)
 
 // Delete an application 
 

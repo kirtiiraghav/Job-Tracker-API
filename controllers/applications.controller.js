@@ -105,7 +105,37 @@ const createApplication = async (req, res) => {
   sendSuccess(res, 201, true, newApplication);
 };
 
-const updateApplication = (req, res) => {};
+const updateApplication = async (req, res) => {
+  const data = await readData();
+  let applications = data.applications;
+
+  const id = Number(req.params.id);
+  const updates = req.body;
+
+  const application = applications.find((a) => a.id === id);
+
+  if (!application) {
+    sendError(res, 400, false, `Application #${id} doesn't exist`);
+    return;
+  }
+
+  // Only update fields that were sent
+  if (updates.company !== undefined) {
+    application.company = updates.company;
+  }
+
+  if (updates.role !== undefined) {
+    application.role = updates.role;
+  }
+
+  if (updates.status !== undefined) {
+    application.status = updates.status;
+  }
+
+  writeData({ applications });
+
+  sendSuccess(res, 200, true, application);
+};
 
 module.exports = {
   getApplications,
