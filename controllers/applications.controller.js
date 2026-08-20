@@ -45,4 +45,18 @@ const getApplications = async (req, res) => {
   sendSuccess(res, 200, true, applications);
 };
 
-module.exports = { getApplications };
+const getApplicationById = async (req, res) => {
+  const data = await readData();
+  let applications = data.applications;
+
+  const { id } = req.params;
+
+  if (id) {
+    const ID = Number(id);
+    applications = applications.filter((app) => app.id === ID);
+  }
+
+  sendSuccess(res, 200, true, applications);
+};
+
+module.exports = { getApplications, getApplicationById };
