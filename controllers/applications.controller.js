@@ -137,10 +137,29 @@ const updateApplication = async (req, res) => {
   sendSuccess(res, 200, true, application);
 };
 
+const deleteApplication = async (req, res) => {
+  const data = await readData();
+  let applications = data.applications;
+
+  const id = Number(req.params.id);
+  const deleteIndex = applications.findIndex((a) => a.id === id);
+
+  if (deleteIndex === -1) {
+    sendError(res, 404, false, `Application #${id} doesn't exist`);
+    return;
+  }
+
+  applications.splice(deleteIndex, 1);
+  writeData({ applications });
+
+  sendSuccess(res, 204, true, `Application #${id} deleted`);
+};
+
 module.exports = {
   getApplications,
   getApplicationById,
   getStats,
   createApplication,
   updateApplication,
+  deleteApplication,
 };

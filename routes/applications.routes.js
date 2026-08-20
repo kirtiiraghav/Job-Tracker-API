@@ -4,7 +4,8 @@ const {
   getApplicationById,
   getStats,
   createApplication, 
-  updateApplication
+  updateApplication, 
+  deleteApplication
 } = require("../controllers/applications.controller");
 
 const router = express.Router();
@@ -25,5 +26,6 @@ router.post("/", createApplication)
 router.patch("/:id", updateApplication)
 
 // Delete an application 
+router.delete("/:id", deleteApplication)
 
 module.exports = router;
